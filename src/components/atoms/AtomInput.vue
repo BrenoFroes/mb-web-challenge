@@ -6,7 +6,7 @@
             class="atom-input__field"
             :class="{ 'atom-input__field--error': hasError }"
             :type="type" 
-            :value="modelValue" 
+            :value="maskValue(modelValue)" 
             @input="handleInput"
         />
         <span v-show="hasError" class="atom-input__error-message">
@@ -44,8 +44,18 @@ const handleInput = (event) => {
 
 const hasError = computed(() => props.errorMessage && props.errorMessage.length > 0)
 
-// Remove linha desnecessária
-// const { label, type, id, value, errorMessage } = props
+const maskValue = (value) => {
+    if (props.label === 'CPF') {
+        const cleanCPF = value.replace(/\D/g, '');
+        return cleanCPF.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    }
+    if (props.label.contains('data')) {
+        const cleanDate = value.replace(/\D/g, '');
+        return cleanDate.replace(/(\d{2})(\d{2})(\d{4})/, '$1/$2/$3');
+    }
+    return value;
+}
+
 </script>
 
 <style lang="scss" scoped>

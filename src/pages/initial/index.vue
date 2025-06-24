@@ -27,17 +27,18 @@
             />
         </div>
         <atom-button
-            :disabled="!validateEmail(email) || !personType || errorMessage.length > 0"
+            :disabled="!isValidEmail(email) || !personType || errorMessage.length > 0 || email.length <= 0"
             @click="nextStep()"
         />
     </div>
 </template>
 <script setup>
-import { ref, watch, computed } from 'vue';
+import { ref, watch } from 'vue';
 import { store } from '@stores/current-page.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
 import AtomInput from '@/components/atoms/AtomInput.vue';
 import AtomRadio from '@/components/atoms/AtomRadio.vue';
+import { validateEmail } from '@/assets/utils/validation.js';
 
 const email = ref('');
 const personType = ref('');
@@ -51,23 +52,10 @@ watch(personType, (newValue) => {
     store.isLegalPerson = newValue === 'legal';
 });
 
-const validateEmail = (email) => {
-    if (!email || email.trim() === '') {
-        errorMessage.value = '';
-        return true;
-    }
-
-    const isValidFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if (email.length < 5 || email.length > 50) {
-        errorMessage.value = 'O e-mail deve ter entre 5 e 50 caracteres';
-        return false;
-    }
-    if (!isValidFormat) {
-        errorMessage.value = 'Formato de e-mail inválido';
-        return false;
-    }
-    errorMessage.value = '';
-    return true;
+const isValidEmail = (email) => {
+    const result = validateEmail(email);
+    errorMessage.value = result.errorMessage;
+    return result.valid;
 };
 
 const nextStep = () => {
