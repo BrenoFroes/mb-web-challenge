@@ -12,7 +12,8 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import { store } from '@stores/template-header.js'
+import { store } from '@stores/current-page.js';
+
 defineOptions({
   name: "DefaultLayout",
 });
@@ -20,19 +21,23 @@ defineOptions({
 
 <style lang="scss" scoped>
 .template {
-  width: 100vw;
-  height: 100vh;
-  background-color: #f0f0f0;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
-  max-width: 375px;
+  max-width: 351px;
+  max-height: 667px;
   margin: 0 auto;
+  padding: 12px;
+  border-radius: 4px;
 }
 .header {
   color: #000;
+  margin: 0 auto 12px 0;
   &__step {
     &--number {
-      color: #ff9900;
+      color: var(--main-color);
     }
   }
 }

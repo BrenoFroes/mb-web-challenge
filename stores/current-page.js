@@ -1,6 +1,9 @@
 import { reactive } from 'vue'
 
-export const store = reactive({
+const store = reactive({
   step: 1,
   isLegalPerson: false,
 })
+
+export { store }
+export default store

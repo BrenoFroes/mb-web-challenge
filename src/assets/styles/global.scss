@@ -1,4 +1,9 @@
+$main-color: #ff9900;
+$secondary-color: #eea942;
+
 :root {
+  --main-color: #{$main-color};
+  --secondary-color: #{$secondary-color};
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -22,8 +27,6 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
 h1 {
@@ -34,6 +37,7 @@ h1 {
 #app {
     width: 100vw;
     height: 100vh;
-    margin: 0 auto;
-    padding: 0 auto;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
 }
