@@ -1,58 +1,64 @@
 <template>
-    <div class="first-page">
-        <h1 class="first-page__title">Seja bem vindo(a)</h1>
-        <label class="first-page__label" for="mb-email-input">Endereço de e-mail</label>
-        <input 
-            :class="{ 'first-page__input--error': !isValidEmail(email) }"
-            class="first-page__input" id="mb-email-input" type="email" v-model="email" />
-        <span v-show="shouldShowError" class="first-page__error-message">
-            {{ errorMessage }}
-        </span>
-        <div class="first-page__radios">
-            <div class="first-page__radio-group">
-                <input 
-                    type="radio" 
-                    id="mb-physical-person" 
-                    name="person-type" 
-                    value="physical" 
-                    v-model="personType"
-                />
-                <label for="mb-physical-person">Pessoa física</label>
-            </div>
-            
-            <div class="first-page__radio-group">
-                <input 
-                    type="radio" 
-                    id="mb-legal-person" 
-                    name="person-type" 
-                    value="legal" 
-                    v-model="personType"
-                />
-                <label for="mb-legal-person">Pessoa jurídica</label>
-            </div>
+    <div class="initial">
+        <h1 class="initial__title">Seja bem vindo(a)</h1>
+        <atom-input
+            id="mbEmailInput"
+            type="email"
+            label="Endereço de e-mail"
+            v-model="email"
+            :errorMessage="errorMessage"
+        />
+        <div class="initial__radios">
+            <atom-radio
+                id="mbPhysicalPerson"
+                type="radio"
+                value="physical"
+                label="Pessoa física"
+                v-model="personType"
+                @update="personType = $event"
+            />
+            <atom-radio
+                id="mbLegalPerson"
+                type="radio"
+                value="legal"
+                label="Pessoa jurídica"
+                v-model="personType"
+                @update="personType = $event"
+            />
         </div>
-        <button class="first-page__button" @click="$router.push('/person-data')">
-            Continuar
-        </button>
+        <atom-button
+            :disabled="!validateEmail(email) || !personType || errorMessage.length > 0"
+            @click="nextStep()"
+        />
     </div>
 </template>
 <script setup>
 import { ref, watch, computed } from 'vue';
 import { store } from '@stores/current-page.js';
+import AtomButton from '@/components/atoms/AtomButton.vue';
+import AtomInput from '@/components/atoms/AtomInput.vue';
+import AtomRadio from '@/components/atoms/AtomRadio.vue';
 
 const email = ref('');
 const personType = ref('');
 const errorMessage = ref('');
 
-watch(personType, (newValue) => {
-    store.isLegalPerson = newValue === 'juridica';
+watch(email, (newValue) => {
+    validateEmail(newValue);
 });
 
-const isValidEmail = (email) => {
-    if (!email || email.trim() === '') return true;
+watch(personType, (newValue) => {
+    store.isLegalPerson = newValue === 'legal';
+});
+
+const validateEmail = (email) => {
+    if (!email || email.trim() === '') {
+        errorMessage.value = '';
+        return true;
+    }
 
     const isValidFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    if(( email.length < 5 || email.length > 50) && email !== null) {
+    if (email.length < 5 || email.length > 50) {
         errorMessage.value = 'O e-mail deve ter entre 5 e 50 caracteres';
         return false;
     }
@@ -60,16 +66,17 @@ const isValidEmail = (email) => {
         errorMessage.value = 'Formato de e-mail inválido';
         return false;
     }
+    errorMessage.value = '';
     return true;
 };
 
-const shouldShowError = computed(() => {
-    return email.value && email.value.trim() !== '' && !isValidEmail(email.value);
-});
+const nextStep = () => {
+    store.step++;
+};
 
 </script>
 <style lang="scss" scoped>
-.first-page {
+.initial {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -129,46 +136,7 @@ const shouldShowError = computed(() => {
         justify-content: flex-start;
         gap: 16px;
         width: 100%;
-        margin-top: 16px;
-    }
-
-    &__radio-group {
-        display: flex;
-        align-items: center;
-        margin-bottom: 12px;
-        
-        input[type="radio"] {
-            margin-right: 8px;
-            width: 16px;
-            height: 16px;
-
-            &:checked {
-                accent-color: #000;
-            }
-        }
-        
-        label {
-            font-size: 18px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-    }
-
-    &__button {
-        width: 100%;
-        padding: 12px;
-        font-size: 16px;
-        font-weight: 600;
-        color: #fff;
-        background-color: var(--main-color);
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-
-        &:hover {
-            background-color:  var(--secondary-color);
-        }
+        margin: 16px 0;
     }
 }
 </style>
