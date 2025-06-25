@@ -5,8 +5,8 @@
             id="mbEmailInput"
             type="email"
             label="Endereço de e-mail"
-            v-model="store.initial.email"
-            :errorMessage="errorMessage"
+            v-model="formData.email"
+            :errorMessage="errorMessage.email"
         />
         <div v-if="store.initial.isLegalPerson" class="info-review__legal">
             <organism-legal-form stored @update:valid="handleValidationForm"/>
@@ -18,21 +18,22 @@
             id="mbPasswordInput"
             type="text"
             label="Sua senha"
-            v-model="store.acessKey.password"
-            :errorMessage="errorMessage"
+            v-model="formData.password"
+            :errorMessage="errorMessage.password"
         />
         <atom-button
+            class="info-review__button"
             :disabled="!isValidEmail || !isValidPassword || !isFormValid"
             @click="nextStep()"
         />
     </div>
 </template>
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { store } from '@stores/user-info.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
 import MoleculeInput from '@/components/molecules/MoleculeInput.vue';
-import { validateEmail } from '@/assets/utils/validations.js';
+import { validateEmail, validatePassword } from '@/assets/utils/validations.js';
 import OrganismPhysicalForm from '@/components/organisms/OrganismPhysicalForm.vue';
 import OrganismLegalForm from '@/components/organisms/OrganismLegalForm.vue';
 
@@ -48,35 +49,40 @@ const errorMessage = ref({
 const isFormValid = ref(false);
 
 watch(formData, (newData) => {
-    Object.keys(newData).forEach(key => {
-        const cleanKey = key.replace(/\D/g, '');
-        if (key === 'email') {
-            store.initial.email = newData[cleanKey];
-        } else if (key === 'password') {
-            store.acessKey.password = newData[cleanKey];
-        }
-    });
+    if (newData.email) {
+        store.initial.email = newData.email;
+    }
+    if (newData.password) {
+        store.acessKey.password = newData.password;
+    }
 }, { deep: true });
 
-const isValidEmail = () => {
-    const result = validateEmail(email.value);
+const isValidEmail = computed(() => {
+    const result = validateEmail(formData.value.email);
     errorMessage.value.email = result.errorMessage;
     return result.valid;
-};
+});
 
-const isValidPassword = () => {
-    const result = validatePassword(password.value);
+const isValidPassword = computed(() => {
+    const result = validatePassword(formData.value.password);
     errorMessage.value.password = result.errorMessage;
     return result.valid;
-};
+});
 
 const handleValidationForm = (isValid) => {
     isFormValid.value = isValid;
 };
 
+const feedFieldsFromStore = () => {
+    formData.value.email = store.initial.email || '';
+    formData.value.password = store.acessKey.password || '';
+};
+
 const nextStep = () => {
     store.step++;
 };
+
+feedFieldsFromStore();
 
 </script>
 <style lang="scss" scoped>
@@ -88,9 +94,13 @@ const nextStep = () => {
     height: 100vh;
 
     &__title {
-        font-size: 32px;
+        font-size: 30px;
         font-weight: 700;
         margin-bottom: 16px;
+    }
+
+    &__button {
+        margin-top: 12px;
     }
 
     &__legal,

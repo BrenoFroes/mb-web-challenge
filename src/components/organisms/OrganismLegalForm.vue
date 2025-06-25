@@ -3,7 +3,7 @@
         <h1 v-if="!stored" class="organism-legal-form__title">Pessoa jurídica</h1>        
         <molecule-input
             id="mbCompanyNameInput"
-            label="Nome"
+            label="Razão social"
             v-model="formData.companyName"
             :error-message="errorMessages.companyName"
         />
@@ -23,8 +23,8 @@
         <molecule-input
             id="mbPhoneInput"
             label="Telefone"
-            v-model="formData.phone"
-            :error-message="errorMessages.phone"
+            v-model="formData.companyPhone"
+            :error-message="errorMessages.companyPhone"
         />
     </div>
 </template>
@@ -38,21 +38,21 @@ const formData = ref({
     companyName: '',
     cnpj: '',
     foundingDate: '',
-    phone: ''
+    companyPhone: ''
 });
 
 const errorMessages = ref({
     companyName: '',
     cnpj: '',
     foundingDate: '',
-    phone: '',
+    companyPhone: '',
 });
 
 const validations = {
     companyName: validateCompanyName,
     cnpj: validateCNPJ,
     foundingDate: validateFoundingDate,
-    phone: validatePhone
+    companyPhone: validatePhone
 };
 
 const emit = defineEmits(['update:valid'])
@@ -86,7 +86,7 @@ watch(isFormValid, (valid) => {
 
 watch(formData, (newData) => {
     Object.keys(newData).forEach(key => {
-        let cleanKey = '';
+        let cleanKey = newData[key];
         if (key !== 'foundingDate') {
             // permite somente letras, numeros e espacos
             cleanKey = newData[key].replace(/[^a-zA-Z0-9\s]/g, '');
@@ -118,7 +118,7 @@ if (props.stored) {
     height: auto;
 
     &__title {
-        font-size: 32px;
+        font-size: 30px;
         font-weight: 700;
         margin-bottom: 16px;
     }

@@ -15,7 +15,7 @@
     </div>
 </template>
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { store } from '@stores/user-info.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
 import MoleculeInput from '@/components/molecules/MoleculeInput.vue';
@@ -25,15 +25,15 @@ const password = ref('');
 const errorMessage = ref('');
 
 watch(password, (newValue) => {
-    isValidPassword(newValue);
+    validatePassword(newValue);
     store.acessKey.password = newValue;
 });
 
-const isValidPassword = () => {
+const isValidPassword = computed(() => {
     const result = validatePassword(password.value);
     errorMessage.value = result.errorMessage;
     return result.valid;
-};
+});
 
 const nextStep = () => {
     store.step++;
@@ -49,7 +49,7 @@ const nextStep = () => {
     height: 100vh;
 
     &__title {
-        font-size: 32px;
+        font-size: 30px;
         font-weight: 700;
         margin-bottom: 16px;
     }

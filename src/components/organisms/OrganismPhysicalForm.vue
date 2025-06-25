@@ -87,7 +87,7 @@ watch(isFormValid, (valid) => {
 
 watch(formData, (newData) => {
     Object.keys(newData).forEach(key => {
-        let cleanKey = '';
+        let cleanKey = newData[key];
         if (key !== 'birthDate') {
             // permite somente letras, numeros e espacos
             cleanKey = newData[key].replace(/[^a-zA-Z0-9\s]/g, '');
@@ -118,7 +118,7 @@ if (props.stored) {
     height: auto;
 
     &__title {
-        font-size: 32px;
+        font-size: 30px;
         font-weight: 700;
         margin-bottom: 16px;
     }

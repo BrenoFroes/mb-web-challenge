@@ -27,13 +27,13 @@
             />
         </div>
         <atom-button
-            :disabled="!isValidEmail() || !personType || errorMessage.length > 0 || email.length <= 0"
+            :disabled="!isValidEmail || !personType || errorMessage.length > 0 || email.length <= 0"
             @click="nextStep()"
         />
     </div>
 </template>
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, watch, computed } from 'vue';
 import { store } from '@stores/user-info.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
 import MoleculeInput from '@/components/molecules/MoleculeInput.vue';
@@ -53,11 +53,11 @@ watch(personType, (newValue) => {
     store.initial.isLegalPerson = newValue === 'legal';
 });
 
-const isValidEmail = () => {
+const isValidEmail = computed(() => {
     const result = validateEmail(email.value);
     errorMessage.value = result.errorMessage;
     return result.valid;
-};
+});
 
 const nextStep = () => {
     store.step++;
@@ -73,7 +73,7 @@ const nextStep = () => {
     height: 100vh;
 
     &__title {
-        font-size: 32px;
+        font-size: 30px;
         font-weight: 700;
         margin-bottom: 16px;
     }
