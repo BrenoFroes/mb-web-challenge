@@ -1,7 +1,7 @@
 <template>
     <div class="info-review">
         <h1 class="info-review__title">Revise suas informações</h1>
-        <molecule-input
+        <molecule-label-input
             id="mbEmailInput"
             type="email"
             label="Endereço de e-mail"
@@ -14,7 +14,7 @@
         <div v-else class="info-review__physical">
             <organism-physical-form stored @update:valid="handleValidationForm"/>
         </div>
-        <molecule-input
+        <molecule-label-input
             id="mbPasswordInput"
             type="text"
             label="Sua senha"
@@ -32,7 +32,7 @@
 import { ref, watch, computed } from 'vue';
 import { store } from '@stores/user-info.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
-import MoleculeInput from '@/components/molecules/MoleculeInput.vue';
+import MoleculeLabelInput from '@/components/molecules/MoleculeLabelInput.vue';
 import { validateEmail, validatePassword } from '@/assets/utils/validations.js';
 import OrganismPhysicalForm from '@/components/organisms/OrganismPhysicalForm.vue';
 import OrganismLegalForm from '@/components/organisms/OrganismLegalForm.vue';

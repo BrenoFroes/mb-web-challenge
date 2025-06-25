@@ -1,7 +1,7 @@
 <template>
     <div class="initial">
         <h1 class="initial__title">Seja bem vindo(a)</h1>
-        <molecule-input
+        <molecule-label-input
             id="mbEmailInput"
             type="email"
             label="Endereço de e-mail"
@@ -9,7 +9,7 @@
             :errorMessage="errorMessage"
         />
         <div class="initial__radios">
-            <molecule-radio
+            <molecule-label-radio
                 id="mbPhysicalPerson"
                 type="radio"
                 value="physical"
@@ -17,7 +17,7 @@
                 v-model="personType"
                 @update="personType = $event"
             />
-            <molecule-radio
+            <molecule-label-radio
                 id="mbLegalPerson"
                 type="radio"
                 value="legal"
@@ -36,8 +36,8 @@
 import { ref, watch, computed } from 'vue';
 import { store } from '@stores/user-info.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
-import MoleculeInput from '@/components/molecules/MoleculeInput.vue';
-import MoleculeRadio from '@/components/molecules/MoleculeRadio.vue';
+import MoleculeLabelInput from '@/components/molecules/MoleculeLabelInput.vue';
+import MoleculeLabelRadio from '@/components/molecules/MoleculeLabelRadio.vue';
 import { validateEmail } from '@/assets/utils/validations.js';
 
 const email = ref('');

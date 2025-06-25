@@ -1,7 +1,7 @@
 <template>
     <div class="acess-key">
         <h1 class="acess-key__title">Senha de acesso</h1>
-        <molecule-input
+        <molecule-label-input
             id="mbPasswordInput"
             type="password"
             label="Sua senha"
@@ -18,7 +18,7 @@
 import { ref, watch, computed } from 'vue';
 import { store } from '@stores/user-info.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
-import MoleculeInput from '@/components/molecules/MoleculeInput.vue';
+import MoleculeLabelInput from '@/components/molecules/MoleculeLabelInput.vue';
 import { validatePassword } from '@/assets/utils/validations.js';
 
 const password = ref('');

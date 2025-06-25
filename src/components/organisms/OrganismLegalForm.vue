@@ -1,26 +1,26 @@
 <template>
     <div class="organism-legal-form">
         <h1 v-if="!stored" class="organism-legal-form__title">Pessoa jurídica</h1>        
-        <molecule-input
+        <molecule-label-input
             id="mbCompanyNameInput"
             label="Razão social"
             v-model="formData.companyName"
             :error-message="errorMessages.companyName"
         />
-        <molecule-input
+        <molecule-label-input
             id="mbcnpjInput"
             label="CNPJ"
             v-model="formData.cnpj"
             :error-message="errorMessages.cnpj"
         />
-        <molecule-input
+        <molecule-label-input
             id="mbBirthInput"
             label="Data de fundação"
             type="date"
             v-model="formData.foundingDate"
             :error-message="errorMessages.foundingDate"
         />
-        <molecule-input
+        <molecule-label-input
             id="mbPhoneInput"
             label="Telefone"
             v-model="formData.companyPhone"
@@ -31,7 +31,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
 import { store } from '@stores/user-info.js';
-import MoleculeInput from '@/components/molecules/MoleculeInput.vue';
+import MoleculeLabelInput from '@/components/molecules/MoleculeLabelInput.vue';
 import { validateCompanyName, validateCNPJ, validateFoundingDate, validatePhone } from '@/assets/utils/validations.js';
 
 const formData = ref({

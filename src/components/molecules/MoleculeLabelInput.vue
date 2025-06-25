@@ -1,15 +1,15 @@
 <template>
-    <div class="molecule-input">
-        <label class="molecule-input__label" :for="id">{{ label }}</label>
+    <div class="molecule-label-input">
+        <label class="molecule-label-input__label" :for="id">{{ label }}</label>
         <input
             :id="id"
-            class="molecule-input__field"
-            :class="{ 'molecule-input__field--error': hasError }"
+            class="molecule-label-input__field"
+            :class="{ 'molecule-label-input__field--error': hasError }"
             :type="type" 
             :value="maskValue(modelValue)" 
             @input="handleInput"
         />
-        <span v-show="hasError" class="molecule-input__error-message">
+        <span v-show="hasError" class="molecule-label-input__error-message">
             {{ errorMessage }}
         </span>
     </div>
@@ -63,7 +63,7 @@ const maskValue = (value) => {
 </script>
 
 <style lang="scss" scoped>
-.molecule-input {
+.molecule-label-input {
     width: 100%;
     display: flex;
     flex-direction: column;

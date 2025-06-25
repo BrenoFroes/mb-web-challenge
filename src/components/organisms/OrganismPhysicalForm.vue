@@ -1,26 +1,26 @@
 <template>
     <div class="organism-physical-form">
         <h1 v-if="!stored" class="organism-physical-form__title">Pessoa física</h1>
-        <molecule-input
+        <molecule-label-input
             id="mbNameInput"
             label="Nome"
             v-model="formData.name"
             :error-message="errorMessages.name"
         />
-        <molecule-input
+        <molecule-label-input
             id="mbCpfInput"
             label="CPF"
             v-model="formData.cpf"
             :error-message="errorMessages.cpf"
         />
-        <molecule-input
+        <molecule-label-input
             id="mbBirthInput"
             label="Data de nascimento"
             type="date"
             v-model="formData.birthDate"
             :error-message="errorMessages.birthDate"
         />
-        <molecule-input
+        <molecule-label-input
             id="mbPhoneInput"
             label="Telefone"
             v-model="formData.phone"
@@ -31,7 +31,7 @@
 <script setup>
 import { ref, computed, watch } from 'vue';
 import { store } from '@stores/user-info.js';
-import MoleculeInput from '@/components/molecules/MoleculeInput.vue';
+import MoleculeLabelInput from '@/components/molecules/MoleculeLabelInput.vue';
 import { validateName, validateCPF, validateBirth, validatePhone } from '@/assets/utils/validations.js';
 
 const formData = ref({
