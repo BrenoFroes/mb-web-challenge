@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./css/form.css">
+  <script type="module" src="./scripts/form.js"></script>
+  <title>Servidor Node Express</title>
+</head>
+<body>
+    <div id="initial">
+        <div class="mb-text-input">
+            <label class="mb-text-input__label" for="mbEmailInput">Endereço de e-mail</label>
+            <input id="mbEmailInput" class="mb-text-input__field" type="email" value="">
+            <span id="mbErrorEmailInput" class="mb-text-input__error-message"></span>
+        </div>
+        <div class="initial__radios">
+            <div class="mb-radio-input" type="radio">
+                <input id="mbPhysicalPerson" class="mb-radio-input__field" type="radio" value="physical" checked>
+                <label class="mb-radio-input__label" for="mbPhysicalPerson">Pessoa física</label>
+            </div>
+            <div class="mb-radio-input" type="radio">
+                <input id="mbLegalPerson" class="mb-radio-input__field" type="radio" value="legal">
+                <label class="mb-radio-input__label" for="mbLegalPerson">Pessoa jurídica</label>
+            </div>
+        </div>
+    </div>
+    <div id="physical-person-data">
+        <div class="mb-text-input">
+            <label class="mb-text-input__label" for="mbNameInput">Nome</label>
+            <input id="mbNameInput" class="mb-text-input__field" type="text" value="">
+            <span id="mbErrorNameInput" class="mb-text-input__error-message" ></span>
+        </div>
+        <div class="mb-text-input">
+            <label class="mb-text-input__label" for="mbCpfInput">CPF</label>
+            <input id="mbCpfInput" class="mb-text-input__field" type="text" value="">
+            <span id="mbErrorCpfInput"class="mb-text-input__error-message"></span>
+        </div>
+        <div class="mb-text-input">
+            <label class="mb-text-input__label" for="mbBirthInput">Data de nascimento</label>
+            <input id="mbBirthInput" class="mb-text-input__field" type="date" value="">
+            <span id="mbErrorBirthInput" class="mb-text-input__error-message"></span>
+        </div>
+        <div class="mb-text-input">
+            <label class="mb-text-input__label" for="mbPhoneInput">Telefone</label>
+            <input id="mbPhoneInput" class="mb-text-input__field" type="tel" value="">
+            <span id="mbErrorPhoneInput" class="mb-text-input__error-message"></span>
+        </div>
+    </div>
+    <div id="legal-person-data">
+        <div class="mb-text-input">
+            <label class="mb-text-input__label" for="mbCompanyNameInput">Razão social</label>
+            <input id="mbCompanyNameInput" class="mb-text-input__field" type="text" value="">
+            <span id="mbErrorCompanyNameInput" class="mb-text-input__error-message"></span>
+        </div>
+        <div class="mb-text-input">
+            <label class="mb-text-input__label" for="mbCnpjInput">CNPJ</label>
+            <input id="mbCnpjInput" class="mb-text-input__field" type="text" value="">
+            <span id="mbErrorCnpjInput" class="mb-text-input__error-message"></span>
+        </div>
+        <div class="mb-text-input">
+            <label class="mb-text-input__label" for="mbFoundingDateInput">Data de abertura</label>
+            <input id="mbFoundingDateInput" class="mb-text-input__field" type="date" value="">
+            <span id="mbErrorFoundingDateInput" class="mb-text-input__error-message"></span>
+        </div>
+        <div class="mb-text-input">
+            <label class="mb-text-input__label" for="mbCompanyPhoneInput">Telefone</label>
+            <input id="mbCompanyPhoneInput" class="mb-text-input__field" type="tel" value="">
+            <span id="mbErrorCompanyPhoneInput" class="mb-text-input__error-message"></span>
+        </div>
+    </div>
+</body>
+</html>
