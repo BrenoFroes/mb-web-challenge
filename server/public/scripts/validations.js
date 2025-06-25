@@ -57,7 +57,6 @@ const validateCPF = (cpf) => {
     }
 
     const cleanCPF = cpf.replace(/\D/g, '');
-
     if (cleanCPF.length !== 11) {
         return {
             valid: false,
@@ -67,7 +66,6 @@ const validateCPF = (cpf) => {
 
     let sum = 0;
     let remainder;
-
     for (let i = 1; i <= 9; i++) {
         sum += parseInt(cleanCPF.substring(i - 1, i)) * (11 - i);
     }
@@ -193,22 +191,55 @@ const validateFoundingDate = (foundingDate) => {
     return { valid: true, errorMessage: '' };
 };
 
+const validatePassword = (password) => {
+    if (ignoreValidation(password)) {
+        return { valid: true, errorMessage: '' };
+    }
+    const hasMinLength = password.length >= 12;
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+
+    if (!hasMinLength) {
+        return { valid: false, errorMessage: 'A senha deve ter pelo menos 12 caracteres.'}
+    }
+    if (!hasUpperCase) {
+        return { valid: false, errorMessage: 'A senha deve conter pelo menos uma letra maiúscula.'}
+    }
+    if (!hasSpecialChar) {
+        return { valid: false,errorMessage: 'A senha deve conter pelo menos um caractere especial.'}
+    }
+    if (!hasLowerCase) {
+        return { valid: false, errorMessage: 'A senha deve conter pelo menos uma letra minúscula.' };
+    }
+    if (!hasNumber) {
+        return { valid: false, errorMessage: 'A senha deve conter pelo menos um número.' };
+    }
+    return { valid: true, errorMessage: '' };
+};
+
 function setupValidation(inputId, errorId, validateFn) {
     const input = document.getElementById(inputId);
     const errorMessage = document.getElementById(errorId);
 
     if (!input || !errorMessage) return;
 
+    if(inputId === 'mbPhoneInput') {
+        console.log('asdas', input.value);
+        document.cookie = `mbCompanyPhoneInput=${input.value}; path=/;`;
+    }
     const handleValidation = () => {
         const result = validateFn(input.value);
         input.classList.toggle('mb-text-input__field--error', !result.valid);
         errorMessage.textContent = result.valid ? '' : result.errorMessage;
         errorMessage.style.display = result.valid ? 'none' : 'block';
+        document.cookie = `${inputId}=${input.value}; path=/;`;
     };
 
     input.addEventListener('input', handleValidation);
     input.addEventListener('blur', handleValidation);
 }
 
-export { validateEmail, validateName, validateCPF, validateBirth, validatePhone, validateCNPJ, validateCompanyName, validateFoundingDate, setupValidation };
+export { validateEmail, validateName, validateCPF, validateBirth, validatePhone, validateCNPJ, validateCompanyName, validateFoundingDate, validatePassword, setupValidation };
 
