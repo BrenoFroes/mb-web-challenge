@@ -27,7 +27,7 @@
             />
         </div>
         <atom-button
-            :disabled="!isValidEmail(email) || !personType || errorMessage.length > 0 || email.length <= 0"
+            :disabled="!isValidEmail() || !personType || errorMessage.length > 0 || email.length <= 0"
             @click="nextStep()"
         />
     </div>
@@ -53,8 +53,8 @@ watch(personType, (newValue) => {
     store.initial.isLegalPerson = newValue === 'legal';
 });
 
-const isValidEmail = (email) => {
-    const result = validateEmail(email);
+const isValidEmail = () => {
+    const result = validateEmail(email.value);
     errorMessage.value = result.errorMessage;
     return result.valid;
 };

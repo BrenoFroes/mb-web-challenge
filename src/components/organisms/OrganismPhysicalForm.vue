@@ -1,6 +1,6 @@
 <template>
     <div class="organism-physical-form">
-        <h1 class="organism-physical-form__title">Pessoa física</h1>
+        <h1 v-if="!stored" class="organism-physical-form__title">Pessoa física</h1>
         <molecule-input
             id="mbNameInput"
             label="Nome"
@@ -57,6 +57,13 @@ const validations = {
 
 const emit = defineEmits(['update:valid'])
 
+const props = defineProps({
+    stored: {
+        type: Boolean,
+        default: false
+    }
+});
+
 const isFormValid = computed(() => {
     let allValid = true;
     
@@ -80,10 +87,25 @@ watch(isFormValid, (valid) => {
 
 watch(formData, (newData) => {
     Object.keys(newData).forEach(key => {
-        const cleanKey = key.replace(/\D/g, '');
-        store.personData[key] = newData[cleanKey];
+        let cleanKey = '';
+        if (key !== 'birthDate') {
+            // permite somente letras, numeros e espacos
+            cleanKey = newData[key].replace(/[^a-zA-Z0-9\s]/g, '');
+        }
+        store.personData[key] = cleanKey;
     });
 }, { deep: true });
+
+const feedFieldsFromStore = () => {
+    formData.value.name = store.personData.name || '';
+    formData.value.cpf = store.personData.cpf || '';
+    formData.value.birthDate = store.personData.birthDate || '';
+    formData.value.phone = store.personData.phone || '';
+};
+
+if (props.stored) {
+    feedFieldsFromStore();
+}
 </script>
 
 <style lang="scss" scoped>
@@ -92,6 +114,8 @@ watch(formData, (newData) => {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+    width: 100%;
+    height: auto;
 
     &__title {
         font-size: 32px;

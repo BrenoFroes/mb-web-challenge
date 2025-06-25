@@ -1,6 +1,6 @@
 <template>
     <div class="organism-legal-form">
-        <h1 class="organism-legal-form__title">Pessoa jurídica</h1>        
+        <h1 v-if="!stored" class="organism-legal-form__title">Pessoa jurídica</h1>        
         <molecule-input
             id="mbCompanyNameInput"
             label="Nome"
@@ -57,6 +57,13 @@ const validations = {
 
 const emit = defineEmits(['update:valid'])
 
+const props = defineProps({
+    stored: {
+        type: Boolean,
+        default: false
+    }
+});
+
 const isFormValid = computed(() => {
     let allValid = true;
     
@@ -79,10 +86,25 @@ watch(isFormValid, (valid) => {
 
 watch(formData, (newData) => {
     Object.keys(newData).forEach(key => {
-        const cleanKey = key.replace(/\D/g, '');
-        store.personData[key] = newData[cleanKey];
+        let cleanKey = '';
+        if (key !== 'foundingDate') {
+            // permite somente letras, numeros e espacos
+            cleanKey = newData[key].replace(/[^a-zA-Z0-9\s]/g, '');
+        }
+        store.personData[key] = cleanKey;
     });
 }, { deep: true });
+
+const feedFieldsFromStore = () => {
+    formData.value.companyName = store.personData.companyName || '';
+    formData.value.cnpj = store.personData.cnpj || '';
+    formData.value.foundingDate = store.personData.foundingDate || '';
+    formData.value.companyPhone = store.personData.companyPhone || '';
+};
+
+if (props.stored) {
+    feedFieldsFromStore();
+}
 
 </script>
 
@@ -92,6 +114,8 @@ watch(formData, (newData) => {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+    width: 100%;
+    height: auto;
 
     &__title {
         font-size: 32px;

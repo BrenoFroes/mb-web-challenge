@@ -10,6 +10,7 @@ const validateEmail = (email) => {
         }
     }
 
+    // ve se o email é valido no formato x@x.x
     const isValidFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     if (email.length < 5 || email.length > 50) {
         return {
@@ -42,6 +43,15 @@ const validateName = (name) => {
             errorMessage: 'Digite o nome completo (nome e sobrenome).'
         }   
     }
+
+    // ve se so tem letra
+    if (!/^[a-zA-ZÀ-ÿ\s]+$/.test(name)) {
+        return {
+            valid: false,
+            errorMessage: 'O nome deve conter apenas letras.'
+        }
+    }
+
     return {
         valid: true,
         errorMessage: ''
@@ -56,6 +66,7 @@ const validateCPF = (cpf) => {
         }
     }
 
+    // permite somente numeros
     const cleanCPF = cpf.replace(/\D/g, '');
     if (cleanCPF.length !== 11) {
         return {
@@ -117,9 +128,8 @@ const validatePhone = (phone) => {
     if (ignoreValidation(phone)) {
         return { valid: true, errorMessage: '' };
     }
-    const cleanPhone = phone.replace(/\D/g, '');
-
-    const isValid = /^(\(?\d{2}\)?\s?)?(9\d{4}|[2-9]\d{3})-?\d{4}$/.test(cleanPhone);
+    // ve o formato do telefone xxxxx-xxxx ou xx xxxx-xxxx
+    const isValid = /^(\(?\d{2}\)?\s?)?(9\d{4}|[2-9]\d{3})-?\d{4}$/.test(phone);
     if (!isValid) {
         return { valid: false, errorMessage: 'Telefone inválido.' };
     }
@@ -130,7 +140,7 @@ const validateCNPJ = (cnpj) => {
     if (ignoreValidation(cnpj)) {
         return { valid: true, errorMessage: '' };
     }
-
+    // permite somente numeros
     const cleanCNPJ = cnpj.replace(/\D/g, '');
     if (cleanCNPJ.length !== 14) {
         return { valid: false, errorMessage: 'CNPJ deve conter 14 digitos' };
@@ -198,6 +208,7 @@ const validatePassword = (password) => {
         return { valid: true, errorMessage: '' };
     }
     const hasMinLength = password.length >= 12;
+    // verifica se tem caracter especial, letra maiúscula, letra minúscula e número
     const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
     const hasUpperCase = /[A-Z]/.test(password);
     const hasLowerCase = /[a-z]/.test(password);

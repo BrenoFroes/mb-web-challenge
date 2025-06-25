@@ -9,7 +9,7 @@
             :errorMessage="errorMessage"
         />
         <atom-button
-            :disabled="!isValidPassword(password)"
+            :disabled="!isValidPassword"
             @click="nextStep()"
         />
     </div>
@@ -29,8 +29,8 @@ watch(password, (newValue) => {
     store.acessKey.password = newValue;
 });
 
-const isValidPassword = (password) => {
-    const result = validatePassword(password);
+const isValidPassword = () => {
+    const result = validatePassword(password.value);
     errorMessage.value = result.errorMessage;
     return result.valid;
 };
