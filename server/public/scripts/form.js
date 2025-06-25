@@ -28,6 +28,7 @@ window.document.addEventListener('DOMContentLoaded', () => {
     setupValidation('mbFoundingDateInput', 'mbErrorFoundingDateInput', validateFoundingDate);
     setupValidation('mbPhoneInput', 'mbErrorPhoneInput', validatePhone);
 
+
     // etapa 3 valida senha
     setupValidation('mbPasswordInput', 'mbErrorPasswordInput', validatePassword);
 

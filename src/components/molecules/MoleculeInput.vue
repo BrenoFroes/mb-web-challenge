@@ -1,15 +1,15 @@
 <template>
-    <div class="atom-input">
-        <label class="atom-input__label" :for="id">{{ label }}</label>
+    <div class="molecule-input">
+        <label class="molecule-input__label" :for="id">{{ label }}</label>
         <input
             :id="id"
-            class="atom-input__field"
-            :class="{ 'atom-input__field--error': hasError }"
+            class="molecule-input__field"
+            :class="{ 'molecule-input__field--error': hasError }"
             :type="type" 
             :value="maskValue(modelValue)" 
             @input="handleInput"
         />
-        <span v-show="hasError" class="atom-input__error-message">
+        <span v-show="hasError" class="molecule-input__error-message">
             {{ errorMessage }}
         </span>
     </div>
@@ -45,9 +45,18 @@ const handleInput = (event) => {
 const hasError = computed(() => props.errorMessage && props.errorMessage.length > 0)
 
 const maskValue = (value) => {
-    if (props.label === 'CPF') {
+    console.log('Masking phone number:', value);
+    if (props.label === 'CPF' && value) {
         const cleanCPF = value.replace(/\D/g, '');
         return cleanCPF.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+    }
+    if (props.label === 'Telefone' && value) {
+        const cleanPhone = value.replace(/\D/g, '');
+        if (cleanPhone.length <= 10) {
+            return cleanPhone.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+        } else {
+            return cleanPhone.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+        }
     }
     return value;
 }
@@ -55,10 +64,11 @@ const maskValue = (value) => {
 </script>
 
 <style lang="scss" scoped>
-.atom-input {
+.molecule-input {
     width: 100%;
     display: flex;
     flex-direction: column;
+    margin-bottom: 8px;
 
     &__label {
         font-size: 14px;
