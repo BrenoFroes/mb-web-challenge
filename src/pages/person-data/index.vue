@@ -1,6 +1,6 @@
 <template>
     <div class="person-data">
-        <div v-if="store.isLegalPerson" class="person-data__legal">
+        <div v-if="store.initial.isLegalPerson" class="person-data__legal">
             <organism-legal-form @update:valid="handleValidationForm"/>
         </div>
         <div v-else class="person-data__physical">
@@ -11,7 +11,7 @@
 </template>
 <script setup>
 import { ref } from 'vue';
-import { store } from '@stores/current-page.js';
+import { store } from '@stores/user-info.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
 import OrganismPhysicalForm from '@/components/organisms/OrganismPhysicalForm.vue';
 import OrganismLegalForm from '@/components/organisms/OrganismLegalForm.vue';
@@ -25,5 +25,10 @@ const handleValidationForm = (isValid) => {
 const nextStep = () => {
     store.step++;
 };
-
 </script>
+<style lang="scss" scoped>
+.person-data__legal,
+.person-data__physical {
+    margin-bottom: 12px;
+}
+</style>

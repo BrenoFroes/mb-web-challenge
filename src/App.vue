@@ -12,7 +12,7 @@ import InitialPage from '@/pages/initial/index.vue'
 import PersonDataPage from '@/pages/person-data/index.vue'
 import InfoReviewPage from '@/pages/info-review/index.vue'
 import AcessKey from '@/pages/acess-key/index.vue'
-import { store } from '@stores/current-page.js'
+import { store } from '@stores/user-info.js'
 
 const currentPage = computed(() => {
   switch (store.step) {

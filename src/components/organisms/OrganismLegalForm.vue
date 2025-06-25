@@ -1,39 +1,36 @@
 <template>
-    <div class="organism-physical-form">
-        <h1 class="organism-physical-form__title">Pessoa jurídica</h1>
+    <div class="organism-legal-form">
+        <h1 class="organism-legal-form__title">Pessoa jurídica</h1>        
         <molecule-input
             id="mbCompanyNameInput"
             label="Nome"
             v-model="formData.companyName"
             :error-message="errorMessages.companyName"
-            @update:modelValue="companyName = $event"
         />
         <molecule-input
             id="mbcnpjInput"
             label="CNPJ"
             v-model="formData.cnpj"
             :error-message="errorMessages.cnpj"
-            @update:modelValue="cnpj = $event"
         />
         <molecule-input
             id="mbBirthInput"
-            label="Data de nascimento"
+            label="Data de fundação"
             type="date"
             v-model="formData.foundingDate"
             :error-message="errorMessages.foundingDate"
-            @update:modelValue="foundingDate = $event"
         />
         <molecule-input
             id="mbPhoneInput"
             label="Telefone"
             v-model="formData.phone"
             :error-message="errorMessages.phone"
-            @update:modelValue="phone = $event"
         />
     </div>
 </template>
 <script setup>
-import { ref, computed, toRefs, watch } from 'vue';
+import { ref, computed, watch } from 'vue';
+import { store } from '@stores/user-info.js';
 import MoleculeInput from '@/components/molecules/MoleculeInput.vue';
 import { validateCompanyName, validateCNPJ, validateFoundingDate, validatePhone } from '@/assets/utils/validations.js';
 
@@ -43,7 +40,6 @@ const formData = ref({
     foundingDate: '',
     phone: ''
 });
-const { companyName, cnpj, foundingDate, phone } = toRefs(formData);
 
 const errorMessages = ref({
     companyName: '',
@@ -81,20 +77,21 @@ watch(isFormValid, (valid) => {
     emit('update:valid', valid);
 }, { immediate: true });
 
+watch(formData, (newData) => {
+    Object.keys(newData).forEach(key => {
+        const cleanKey = key.replace(/\D/g, '');
+        store.personData[key] = newData[cleanKey];
+    });
+}, { deep: true });
+
 </script>
 
 <style lang="scss" scoped>
-.organism-physical-form {
+.organism-legal-form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-
-    &__legal,
-    &__physical {
-        width: 100%;
-        height: auto;
-    }
 
     &__title {
         font-size: 32px;

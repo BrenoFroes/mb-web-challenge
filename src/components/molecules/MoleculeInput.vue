@@ -45,7 +45,6 @@ const handleInput = (event) => {
 const hasError = computed(() => props.errorMessage && props.errorMessage.length > 0)
 
 const maskValue = (value) => {
-    console.log('Masking phone number:', value);
     if (props.label === 'CPF' && value) {
         const cleanCPF = value.replace(/\D/g, '');
         return cleanCPF.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');

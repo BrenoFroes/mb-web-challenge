@@ -12,7 +12,7 @@
 
 <script setup>
 import { ref, computed } from 'vue';
-import { store } from '@stores/current-page.js';
+import { store } from '@stores/user-info.js';
 
 defineOptions({
   name: "DefaultLayout",

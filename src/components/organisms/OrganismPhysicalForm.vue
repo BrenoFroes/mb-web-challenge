@@ -6,15 +6,12 @@
             label="Nome"
             v-model="formData.name"
             :error-message="errorMessages.name"
-            @update:modelValue="name = $event"
-            
         />
         <molecule-input
             id="mbCpfInput"
             label="CPF"
             v-model="formData.cpf"
             :error-message="errorMessages.cpf"
-            @update:modelValue="cpf = $event"
         />
         <molecule-input
             id="mbBirthInput"
@@ -22,19 +19,18 @@
             type="date"
             v-model="formData.birthDate"
             :error-message="errorMessages.birthDate"
-            @update:modelValue="birthDate = $event"
         />
         <molecule-input
             id="mbPhoneInput"
             label="Telefone"
             v-model="formData.phone"
             :error-message="errorMessages.phone"
-            @update:modelValue="phone = $event"
         />
     </div>
 </template>
 <script setup>
-import { ref, computed, toRefs, watch } from 'vue';
+import { ref, computed, watch } from 'vue';
+import { store } from '@stores/user-info.js';
 import MoleculeInput from '@/components/molecules/MoleculeInput.vue';
 import { validateName, validateCPF, validateBirth, validatePhone } from '@/assets/utils/validations.js';
 
@@ -82,6 +78,12 @@ watch(isFormValid, (valid) => {
     emit('update:valid', valid);
 }, { immediate: true });
 
+watch(formData, (newData) => {
+    Object.keys(newData).forEach(key => {
+        const cleanKey = key.replace(/\D/g, '');
+        store.personData[key] = newData[cleanKey];
+    });
+}, { deep: true });
 </script>
 
 <style lang="scss" scoped>
@@ -90,12 +92,6 @@ watch(isFormValid, (valid) => {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-
-    &__legal,
-    &__physical {
-        width: 100%;
-        height: auto;
-    }
 
     &__title {
         font-size: 32px;

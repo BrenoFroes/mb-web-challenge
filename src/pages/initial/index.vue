@@ -34,7 +34,7 @@
 </template>
 <script setup>
 import { ref, watch } from 'vue';
-import { store } from '@stores/current-page.js';
+import { store } from '@stores/user-info.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
 import MoleculeInput from '@/components/molecules/MoleculeInput.vue';
 import MoleculeRadio from '@/components/molecules/MoleculeRadio.vue';
@@ -46,10 +46,11 @@ const errorMessage = ref('');
 
 watch(email, (newValue) => {
     validateEmail(newValue);
+    store.initial.email = newValue;
 });
 
 watch(personType, (newValue) => {
-    store.isLegalPerson = newValue === 'legal';
+    store.initial.isLegalPerson = newValue === 'legal';
 });
 
 const isValidEmail = (email) => {
@@ -75,47 +76,6 @@ const nextStep = () => {
         font-size: 32px;
         font-weight: 700;
         margin-bottom: 16px;
-    }
-
-    &__label {
-        font-size: 14px;
-        font-weight: 500;
-        margin-bottom: 8px;
-    }
-
-    &__input {
-        width: 100%;
-        padding: 8px;
-        font-size: 16px;
-        border: 1px solid #000;
-        border-radius: 4px;
-        box-sizing: border-box;
-        margin-bottom: 4px;
-
-        &:focus {
-            outline: none;
-        }
-
-        &--error {
-            border-color: red;
-            outline: none;
-        }
-    }
-
-    &__error-message {
-        color: red;
-        font-size: 12px;
-        margin-bottom: 0;
-    }
-
-    &__person-type {
-        width: 100%;
-        
-        &-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
     }
 
     &__radios {
