@@ -4,12 +4,14 @@
         <molecule-label-input
             id="mbNameInput"
             label="Nome"
+            :disabled="disabled"
             v-model="formData.name"
             :error-message="errorMessages.name"
         />
         <molecule-label-input
             id="mbCpfInput"
             label="CPF"
+            :disabled="disabled"
             v-model="formData.cpf"
             :error-message="errorMessages.cpf"
         />
@@ -17,12 +19,14 @@
             id="mbBirthInput"
             label="Data de nascimento"
             type="date"
+            :disabled="disabled"
             v-model="formData.birthDate"
             :error-message="errorMessages.birthDate"
         />
         <molecule-label-input
             id="mbPhoneInput"
             label="Telefone"
+            :disabled="disabled"
             v-model="formData.phone"
             :error-message="errorMessages.phone"
         />
@@ -59,6 +63,10 @@ const emit = defineEmits(['update:valid'])
 
 const props = defineProps({
     stored: {
+        type: Boolean,
+        default: false
+    },
+    disabled: {
         type: Boolean,
         default: false
     }

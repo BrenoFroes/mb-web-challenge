@@ -1,12 +1,16 @@
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
-
+import cors from 'cors';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = 3000;
+
+app.use(cors({
+    origin: 'http://localhost:5173'
+}));
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -22,32 +26,13 @@ app.get('/registration', (req, res) => {
 
 app.post('/registration', express.json(), (req, res) => {
     let expectedFields = ['email', 'isLegalPerson', 'password'];
-    let payload = {
-        email: req.body.email,
-        isLegalPerson: req.body.isLegalPerson,
-        password: req.body.password,
-    };
-    if (payload.isLegalPerson) {
+    if (req.body.isLegalPerson) {
         expectedFields = [...expectedFields, 'companyName', 'cnpj', 'foundingDate', 'companyPhone'];
-        payload = {
-            ...payload,
-            companyName: req.body.companyName,
-            cnpj: req.body.cnpj,
-            foundingDate: req.body.foundingDate,
-            phone: req.body.companyPhone,
-        }
     } else {
         expectedFields = [...expectedFields, 'name', 'cpf', 'birthDate', 'phone'];
-        payload = {
-            ...payload,
-            name: req.body.name,
-            cpf: req.body.cpf,
-            birthDate: req.body.birthDate,
-            phone: req.body.phone,
-        }
     }
-    if (!expectedFields.every(field => field in req.body)) {
-        return res.status(400).json({ error: `Todos os campos são obrigatórios para pessoa ${payload.isLegalPerson ? 'jurídica.' : 'física'}` });
+    if (!expectedFields.every(field => field in req.body) || expectedFields.filter(field => req.body[field] === '').length > 0) {
+        return res.status(400).json({ error: `Todos os campos são obrigatórios para pessoa ${req.body.isLegalPerson ? 'jurídica.' : 'física'}` });
     }
     const sentFields = Object.keys(req.body);
     const hasExtraFields = sentFields.filter(field => !expectedFields.includes(field));

@@ -2,7 +2,8 @@
     <button 
         class="atom-button" 
         :class="modifiedClass"
-        :disabled="isDisabled" @click="emit('click')">
+        :disabled="isDisabled" 
+        @click="emit('click')">
         {{ label }}
     </button>
 </template>

@@ -1,15 +1,17 @@
 <template>
     <div class="organism-legal-form">
-        <h1 v-if="!stored" class="organism-legal-form__title">Pessoa jurídica</h1>        
+        <h1 v-if="!stored" class="organism-legal-form__title">Pessoa jurídica</h1>
         <molecule-label-input
             id="mbCompanyNameInput"
             label="Razão social"
+            :disabled="disabled"
             v-model="formData.companyName"
             :error-message="errorMessages.companyName"
         />
         <molecule-label-input
             id="mbcnpjInput"
             label="CNPJ"
+            :disabled="disabled"
             v-model="formData.cnpj"
             :error-message="errorMessages.cnpj"
         />
@@ -17,12 +19,14 @@
             id="mbBirthInput"
             label="Data de fundação"
             type="date"
+            :disabled="disabled"
             v-model="formData.foundingDate"
             :error-message="errorMessages.foundingDate"
         />
         <molecule-label-input
             id="mbPhoneInput"
             label="Telefone"
+            :disabled="disabled"
             v-model="formData.companyPhone"
             :error-message="errorMessages.companyPhone"
         />
@@ -59,6 +63,10 @@ const emit = defineEmits(['update:valid'])
 
 const props = defineProps({
     stored: {
+        type: Boolean,
+        default: false
+    },
+    disabled: {
         type: Boolean,
         default: false
     }

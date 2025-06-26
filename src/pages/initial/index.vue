@@ -41,7 +41,7 @@ import MoleculeLabelRadio from '@/components/molecules/MoleculeLabelRadio.vue';
 import { validateEmail } from '@/assets/utils/validations.js';
 
 const email = ref('');
-const personType = ref('');
+const personType = ref('physical');
 const errorMessage = ref('');
 
 watch(email, (newValue) => {
@@ -61,10 +61,6 @@ const isValidEmail = computed(() => {
 const updateEmailError = () => {
     const result = validateEmail(email.value);
     errorMessage.value = result.errorMessage;
-};
-
-const nextStep = () => {
-    store.step++;
 };
 
 </script>

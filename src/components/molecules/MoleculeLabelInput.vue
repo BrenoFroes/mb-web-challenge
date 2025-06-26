@@ -6,6 +6,7 @@
             class="molecule-label-input__field"
             :class="{ 'molecule-label-input__field--error': hasError }"
             :type="type" 
+            :disabled="disabled"
             :value="maskValue(modelValue)" 
             @input="handleInput"
         />
@@ -34,6 +35,10 @@ const props = defineProps({
     errorMessage: {
         type: String,
         default: ''
+    },
+    disabled: {
+        type: Boolean,
+        default: false
     },
     modelValue: [String, Number, Boolean]
 })
@@ -85,6 +90,11 @@ const maskValue = (value) => {
     
         &:focus {
             outline: none;
+        }
+
+        &:disabled {
+            background-color: #f0f0f0;
+            cursor: not-allowed;
         }
 
         &--error {
