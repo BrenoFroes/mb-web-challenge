@@ -27,8 +27,8 @@
             />
         </div>
         <atom-button
-            :disabled="!isValidEmail || !personType || errorMessage.length > 0 || email.length <= 0"
-            @click="nextStep()"
+            :disabled="!isValidEmail || !email"
+            @click="store.step++"
         />
     </div>
 </template>

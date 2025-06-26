@@ -8,10 +8,18 @@
             v-model="password"
             :errorMessage="errorMessage"
         />
-        <atom-button
-            :disabled="!isValidPassword"
-            @click="nextStep()"
-        />
+        <div class="acess-key__buttons">
+            <atom-button
+                class="info-review__button"
+                modifier="outline"
+                label="Voltar"
+                @click="store.step--"
+            />
+            <atom-button
+                :disabled="!isValidPassword || !password"
+                @click="store.step++"
+            />
+        </div>
     </div>
 </template>
 <script setup>
@@ -39,10 +47,6 @@ const updatePasswordError = () => {
     errorMessage.value = result.errorMessage;
 };
 
-const nextStep = () => {
-    store.step++;
-};
-
 </script>
 <style lang="scss" scoped>
 .acess-key {
@@ -56,6 +60,14 @@ const nextStep = () => {
         font-size: 30px;
         font-weight: 700;
         margin-bottom: 16px;
+    }
+
+    &__buttons {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        margin-top: 16px;
     }
 }
 </style>

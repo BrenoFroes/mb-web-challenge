@@ -6,26 +6,35 @@
             type="email"
             label="Endereço de e-mail"
             v-model="formData.email"
-            :errorMessage="errorMessage.email"
-        />
+            :errorMessage="errorMessage.email"/>
         <div v-if="store.initial.isLegalPerson" class="info-review__legal">
-            <organism-legal-form stored @update:valid="handleValidationForm"/>
+            <organism-legal-form 
+                stored 
+                @update:valid="handleValidationForm"/>
         </div>
         <div v-else class="info-review__physical">
-            <organism-physical-form stored @update:valid="handleValidationForm"/>
+            <organism-physical-form 
+                stored 
+                @update:valid="handleValidationForm"/>
         </div>
         <molecule-label-input
             id="mbPasswordInput"
             type="text"
             label="Sua senha"
             v-model="formData.password"
-            :errorMessage="errorMessage.password"
-        />
-        <atom-button
-            class="info-review__button"
-            :disabled="!isValidEmail || !isValidPassword || !isFormValid"
-            @click="nextStep()"
-        />
+            :errorMessage="errorMessage.password"/>
+        
+        <div class="info-review__buttons">
+            <atom-button
+                class="info-review__button"
+                modifier="outline"
+                label="Voltar"
+                @click="store.step--"/>
+            <atom-button
+                class="info-review__button"
+                :disabled="!isValidEmail || !isValidPassword || !isFormValid"
+                @click="store.step++"/>
+        </div>
     </div>
 </template>
 <script setup>
@@ -94,10 +103,6 @@ const feedFieldsFromStore = () => {
     formData.value.password = store.acessKey.password || '';
 };
 
-const nextStep = () => {
-    store.step++;
-};
-
 feedFieldsFromStore();
 
 </script>
@@ -115,14 +120,19 @@ feedFieldsFromStore();
         margin-bottom: 16px;
     }
 
-    &__button {
-        margin-top: 12px;
-    }
-
     &__legal,
     &__physical {
         width: 100%;
         height: auto;
+    }
+
+
+    &__buttons {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 8px;
+        margin-top: 16px;
     }
 }
 </style>

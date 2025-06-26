@@ -1,9 +1,13 @@
 <template>
-    <button class="atom-button" :disabled="isDisabled" @click="emit('click')">
+    <button 
+        class="atom-button" 
+        :class="modifiedClass"
+        :disabled="isDisabled" @click="emit('click')">
         {{ label }}
     </button>
 </template>
 <script setup>
+import { computed } from 'vue'
 const emit = defineEmits(['click'])
 
 const props = defineProps({
@@ -14,10 +18,18 @@ const props = defineProps({
     isDisabled: {
         type: Boolean,
         default: false
+    },
+    modifier: {
+        type: String,
+        default: ''
     }
 })
 
-const { label, isDisabled } = props
+const { label, isDisabled, modifier } = props
+
+const modifiedClass = computed(() => {
+    return modifier ? `atom-button--${modifier}` : ''
+})
 </script>
 
 <style lang="scss" scoped>
@@ -32,6 +44,13 @@ const { label, isDisabled } = props
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
+    margin-bottom: 12px;
+
+    &--outline {
+        border: 1px solid var(--main-color);
+        background-color: transparent;
+        color: var(--main-color);
+    }
 
     &:hover {
         background-color:  var(--secondary-color);

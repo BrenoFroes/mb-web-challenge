@@ -6,7 +6,15 @@
         <div v-else class="person-data__physical">
             <organism-physical-form @update:valid="handleValidationForm"/>
         </div>
-        <atom-button :disabled="!isFormValid" @click="nextStep" />
+        <div class="person-data__buttons">
+            <atom-button 
+                modifier="outline" 
+                label="Voltar"
+                @click="store.step--" />
+            <atom-button 
+                :disabled="!isFormValid" 
+                @click="store.step++" />
+        </div>
     </div>
 </template>
 <script setup>
@@ -22,13 +30,18 @@ const handleValidationForm = (isValid) => {
     isFormValid.value = isValid;
 };
 
-const nextStep = () => {
-    store.step++;
-};
 </script>
 <style lang="scss" scoped>
-.person-data__legal,
-.person-data__physical {
-    margin-bottom: 12px;
+.person-data {
+    &__legal, &__physical {
+        margin-bottom: 12px;
+    }
+
+    &__buttons {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        gap: 8px
+    }
 }
 </style>
