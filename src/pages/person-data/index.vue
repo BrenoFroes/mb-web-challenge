@@ -33,15 +33,12 @@ const handleValidationForm = (isValid) => {
 </script>
 <style lang="scss" scoped>
 .person-data {
-    &__legal, &__physical {
-        margin-bottom: 12px;
-    }
-
     &__buttons {
         width: 100%;
         display: flex;
         flex-direction: row;
-        gap: 8px
+        gap: 8px;
+        margin-top: 16px;
     }
 }
 </style>

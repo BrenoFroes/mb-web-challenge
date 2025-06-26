@@ -33,7 +33,7 @@
             <atom-button
                 class="info-review__button"
                 :disabled="!isValidEmail || !isValidPassword || !isFormValid"
-                @click="store.step++"/>
+                @click="sendData()"/>
         </div>
     </div>
 </template>
@@ -104,6 +104,40 @@ const feedFieldsFromStore = () => {
 };
 
 feedFieldsFromStore();
+
+const sendData = () => {
+    let personData = {
+        email: formData.value.email,
+        password: formData.value.password,
+        isLegalPerson: store.initial.isLegalPerson,
+    };
+    if (store.initial.isLegalPerson) {
+        personData = {
+            ...personData,
+            companyName: store.personData.companyName,
+            cnpj: store.personData.cnpj,
+            foundingDate: store.personData.foundingDate,
+            companyPhone: store.personData.companyPhone,
+        };
+    } else {
+        personData = {
+            ...personData,
+            name: store.personData.name,
+            cpf: store.personData.cpf,
+            birthDate: store.personData.birthDate,
+            phone: store.personData.phone,
+        };
+    }
+    fetch('http://localhost:3000/registration', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(personData),
+    })
+    store.initial.email = formData.value.email;
+    store.acessKey.password = formData.value.password;
+};
 
 </script>
 <style lang="scss" scoped>
