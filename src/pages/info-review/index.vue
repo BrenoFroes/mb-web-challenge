@@ -59,15 +59,31 @@ watch(formData, (newData) => {
 
 const isValidEmail = computed(() => {
     const result = validateEmail(formData.value.email);
-    errorMessage.value.email = result.errorMessage;
     return result.valid;
 });
 
 const isValidPassword = computed(() => {
     const result = validatePassword(formData.value.password);
-    errorMessage.value.password = result.errorMessage;
     return result.valid;
 });
+
+const updateEmailError = () => {
+    const result = validateEmail(formData.value.email);
+    errorMessage.value.email = result.errorMessage;
+};
+
+const updatePasswordError = () => {
+    const result = validatePassword(formData.value.password);
+    errorMessage.value.password = result.errorMessage;
+};
+
+watch(() => formData.value.email, () => {
+    updateEmailError();
+}, { immediate: true });
+
+watch(() => formData.value.password, () => {
+    updatePasswordError();
+}, { immediate: true });
 
 const handleValidationForm = (isValid) => {
     isFormValid.value = isValid;

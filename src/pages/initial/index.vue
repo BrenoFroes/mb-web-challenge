@@ -45,8 +45,8 @@ const personType = ref('');
 const errorMessage = ref('');
 
 watch(email, (newValue) => {
-    validateEmail(newValue);
     store.initial.email = newValue;
+    updateEmailError();
 });
 
 watch(personType, (newValue) => {
@@ -55,9 +55,13 @@ watch(personType, (newValue) => {
 
 const isValidEmail = computed(() => {
     const result = validateEmail(email.value);
-    errorMessage.value = result.errorMessage;
     return result.valid;
 });
+
+const updateEmailError = () => {
+    const result = validateEmail(email.value);
+    errorMessage.value = result.errorMessage;
+};
 
 const nextStep = () => {
     store.step++;

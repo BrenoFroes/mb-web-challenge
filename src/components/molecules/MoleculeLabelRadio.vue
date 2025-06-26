@@ -28,10 +28,6 @@ const props = defineProps({
         type: String,
         required: true
     },
-    hasError: {
-        type: Boolean,
-        default: false
-    },
     modelValue: [String, Number, Boolean]
 })
 
@@ -40,7 +36,7 @@ const inputValue = computed({
   set: (value) => emit('update:modelValue', value)
 })
 
-const { label, id, value, hasError } = props
+const { label, id, value } = props
 </script>
 
 <style lang="scss" scoped>

@@ -232,27 +232,6 @@ const validatePassword = (password) => {
     return { valid: true, errorMessage: '' };
 };
 
-function setupValidation(inputId, errorId, validateFn) {
-    const input = document.getElementById(inputId);
-    const errorMessage = document.getElementById(errorId);
 
-    if (!input || !errorMessage) return;
-
-    if(inputId === 'mbPhoneInput') {
-        console.log('asdas', input.value);
-        document.cookie = `mbCompanyPhoneInput=${input.value}; path=/;`;
-    }
-    const handleValidation = () => {
-        const result = validateFn(input.value);
-        input.classList.toggle('mb-text-input__field--error', !result.valid);
-        errorMessage.textContent = result.valid ? '' : result.errorMessage;
-        errorMessage.style.display = result.valid ? 'none' : 'block';
-        document.cookie = `${inputId}=${input.value}; path=/;`;
-    };
-
-    input.addEventListener('input', handleValidation);
-    input.addEventListener('blur', handleValidation);
-}
-
-export { validateEmail, validateName, validateCPF, validateBirth, validatePhone, validateCNPJ, validateCompanyName, validateFoundingDate, validatePassword, setupValidation };
+export { validateEmail, validateName, validateCPF, validateBirth, validatePhone, validateCNPJ, validateCompanyName, validateFoundingDate, validatePassword };
 

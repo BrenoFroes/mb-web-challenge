@@ -29,7 +29,7 @@
     </div>
 </template>
 <script setup>
-import { ref, computed, watch } from 'vue';
+import { ref, watch } from 'vue';
 import { store } from '@stores/user-info.js';
 import MoleculeLabelInput from '@/components/molecules/MoleculeLabelInput.vue';
 import { validateCompanyName, validateCNPJ, validateFoundingDate, validatePhone } from '@/assets/utils/validations.js';
@@ -64,7 +64,7 @@ const props = defineProps({
     }
 });
 
-const isFormValid = computed(() => {
+const validateForm = () => {
     let allValid = true;
     
     for (const [field, validator] of Object.entries(validations)) {
@@ -77,12 +77,14 @@ const isFormValid = computed(() => {
             allValid = false;
         }
     }
+    
+    emit('update:valid', allValid);
     return allValid;
-});
+};
 
-watch(isFormValid, (valid) => {
-    emit('update:valid', valid);
-}, { immediate: true });
+watch(formData, () => {
+    validateForm();
+}, { deep: true, immediate: true });
 
 watch(formData, (newData) => {
     Object.keys(newData).forEach(key => {

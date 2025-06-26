@@ -25,15 +25,19 @@ const password = ref('');
 const errorMessage = ref('');
 
 watch(password, (newValue) => {
-    validatePassword(newValue);
     store.acessKey.password = newValue;
+    updatePasswordError();
 });
 
 const isValidPassword = computed(() => {
     const result = validatePassword(password.value);
-    errorMessage.value = result.errorMessage;
     return result.valid;
 });
+
+const updatePasswordError = () => {
+    const result = validatePassword(password.value);
+    errorMessage.value = result.errorMessage;
+};
 
 const nextStep = () => {
     store.step++;
