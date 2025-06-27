@@ -7,6 +7,7 @@ Sistema simples de cadastro feito com Vue 3 + Vite.
 Um formulário de cadastro dividido em etapas para registrar pessoas físicas e empresas. 
 
 Basicamente você coloca o email, escolhe se é pessoa física ou empresa correspondentes, preenche os dados, define uma senha e pronto.
+Desafio como basse: https://github.com/mercadobitcoin/desafio-mb-web
 
 ## O que tem
 

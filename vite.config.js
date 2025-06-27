@@ -9,5 +9,10 @@ export default defineConfig({
       '@': resolve(__dirname, 'src'),
       '@stores': resolve(__dirname, 'stores')
     }
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: ['./tests/setup.js']
   }
 })
