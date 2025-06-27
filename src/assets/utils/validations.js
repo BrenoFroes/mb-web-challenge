@@ -114,9 +114,17 @@ const validateBirth = (birth) => {
         return { valid: false, errorMessage: 'Data inválida.' };
     }
     const today = new Date();
+    const minimumYear = 1900;
     const age = today.getFullYear() - date.getFullYear();
+    
+    if (date.getFullYear() < minimumYear) {
+        return { valid: false, errorMessage: `O ano de nascimento não pode ser anterior a ${minimumYear}.` };
+    }
     if (age < 18) {
         return { valid: false, errorMessage: 'Você tem que ter pelo menos 18 anos.' };
+    }
+    if (date > today) {
+        return { valid: false, errorMessage: 'Data de nascimento não pode ser futura.' };
     }
     return { valid: true, errorMessage: '' };
 };
@@ -192,8 +200,13 @@ const validateFoundingDate = (foundingDate) => {
         return { valid: false, errorMessage: 'Data inválida' };
     }
     const today = new Date();
+    const minimumYear = 1800;
+    
     if (date > today) {
         return { valid: false, errorMessage: 'Data de abertura não pode ser uma futura.' };
+    }
+    if (date.getFullYear() < minimumYear) {
+        return { valid: false, errorMessage: `O ano de abertura não pode ser anterior a ${minimumYear}.` };
     }
     return { valid: true, errorMessage: '' };
 };

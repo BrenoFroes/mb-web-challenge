@@ -9,22 +9,26 @@
             :errorMessage="errorMessage"
         />
         <div class="initial__radios">
-            <molecule-label-radio
-                id="mbPhysicalPerson"
-                type="radio"
-                value="physical"
-                label="Pessoa física"
-                v-model="personType"
-                @update="personType = $event"
-            />
-            <molecule-label-radio
-                id="mbLegalPerson"
-                type="radio"
-                value="legal"
-                label="Pessoa jurídica"
-                v-model="personType"
-                @update="personType = $event"
-            />
+            <div class="radio-group">
+                <input
+                    id="mbPhysicalPerson"
+                    type="radio"
+                    value="physical"
+                    v-model="personType"
+                    name="personType"
+                />
+                <label for="mbPhysicalPerson">Pessoa física</label>
+            </div>
+            <div class="radio-group">
+                <input
+                    id="mbLegalPerson"
+                    type="radio"
+                    value="legal"
+                    v-model="personType"
+                    name="personType"
+                />
+                <label for="mbLegalPerson">Pessoa jurídica</label>
+            </div>
         </div>
         <atom-button
             :disabled="!isValidEmail || !email"
@@ -38,7 +42,6 @@ import { store } from '@stores/user-info.js';
 import { useRouter } from '@/composables/useRouter.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
 import MoleculeLabelInput from '@/components/molecules/MoleculeLabelInput.vue';
-import MoleculeLabelRadio from '@/components/molecules/MoleculeLabelRadio.vue';
 import { validateEmail } from '@/assets/utils/validations.js';
 
 const router = useRouter();
@@ -92,5 +95,29 @@ const updateEmailError = () => {
         width: 100%;
         margin: 16px 0;
     }
+
+    .radio-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 12px;
+        cursor: pointer;
+        
+        input[type="radio"] {
+            margin-right: 8px;
+            width: 16px;
+            height: 16px;
+    
+            &:checked {
+                accent-color: #000;
+            }
+        }
+        
+        label {
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+    }
 }
+
 </style>
