@@ -6,11 +6,11 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted } from 'vue'
+import { shallowRef, watch, onMounted } from 'vue'
 import { useRouter } from '@/composables/useRouter.js'
 
 const router = useRouter()
-const currentComponent = ref(null)
+const currentComponent = shallowRef(null)
 
 const loadCurrentComponent = async () => {
   try {

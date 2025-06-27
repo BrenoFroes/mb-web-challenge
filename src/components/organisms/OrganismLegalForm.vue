@@ -98,7 +98,6 @@ watch(formData, (newData) => {
     Object.keys(newData).forEach(key => {
         let cleanKey = newData[key];
         if (key !== 'foundingDate') {
-            // permite somente letras, numeros e espacos
             cleanKey = newData[key].replace(/[^a-zA-Z0-9\s]/g, '');
         }
         store.personData[key] = cleanKey;

@@ -5,6 +5,7 @@ const routerHistory = ref([])
 
 const routes = {
   '/': () => import('@/pages/initial/index.vue'),
+  '/registration': () => import('@/pages/initial/index.vue'),
   '/person-data': () => import('@/pages/person-data/index.vue'),
   '/access-key': () => import('@/pages/access-key/index.vue'),
   '/info-review': () => import('@/pages/info-review/index.vue')

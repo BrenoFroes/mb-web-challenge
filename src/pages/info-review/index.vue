@@ -150,20 +150,22 @@ const sendData = async() => {
         };
     }
     try {
-        await fetch('http://localhost:3000/registration', {
+        const url = 'http://localhost:3000/registration';
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(personData),
         })
+        if (!response.ok) {
+            console.error('Erro ao enviar dados:', response.statusText);
+            throw new Error(`Response status: ${response.status}`);
+        }
         formData.value.successfull = true;
     } catch (error) {
-        if (error.response && error.response.status !== 200) {
-            console.error('Error ao enviar dados:', error);
-            errorMessage.value.final = `Erro ao enviar dados: ${error.statusText}. Por favor, tente novamente.`;
-            return;
-        }
+        console.error('Error ao enviar dados:', error);
+        errorMessage.value.final = `Erro ao enviar dados (${error}). Por favor, tente novamente.`;
         return;
     }
     store.initial.email = formData.value.email;
@@ -191,7 +193,7 @@ const returnToInitial = () => {
     errorMessage.value.email = '';
     errorMessage.value.password = '';
     errorMessage.value.final = '';
-    router.push('/');
+    router.push('/registration');
 };
 
 const goBack = () => {
