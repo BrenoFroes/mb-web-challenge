@@ -40,7 +40,7 @@
                 class="info-review__button"
                 modifier="outline"
                 label="Voltar"
-                @click="store.step--"/>
+                @click="goBack"/>
             <atom-button
                 class="info-review__button"
                 :disabled="!isValidEmail || !isValidPassword || !isFormValid || !formData.email || !formData.password"
@@ -56,11 +56,14 @@
 <script setup>
 import { ref, watch, computed } from 'vue';
 import { store } from '@stores/user-info.js';
+import { useRouter } from '@/composables/useRouter.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
 import MoleculeLabelInput from '@/components/molecules/MoleculeLabelInput.vue';
 import { validateEmail, validatePassword } from '@/assets/utils/validations.js';
 import OrganismPhysicalForm from '@/components/organisms/OrganismPhysicalForm.vue';
 import OrganismLegalForm from '@/components/organisms/OrganismLegalForm.vue';
+
+const router = useRouter();
 
 
 const formData = ref({
@@ -80,7 +83,7 @@ watch(formData, (newData) => {
         store.initial.email = newData.email;
     }
     if (newData.password) {
-        store.acessKey.password = newData.password;
+        store.accessKey.password = newData.password;
     }
 }, { deep: true });
 
@@ -118,7 +121,7 @@ const handleValidationForm = (isValid) => {
 
 const feedFieldsFromStore = () => {
     formData.value.email = store.initial.email || '';
-    formData.value.password = store.acessKey.password || '';
+    formData.value.password = store.accessKey.password || '';
 };
 
 feedFieldsFromStore();
@@ -164,11 +167,10 @@ const sendData = async() => {
         return;
     }
     store.initial.email = formData.value.email;
-    store.acessKey.password = formData.value.password;
+    store.accessKey.password = formData.value.password;
 };
 
 const returnToInitial = () => {
-    store.step = 1;
     store.initial.email = '';
     store.initial.isLegalPerson = false;
     store.personData = {
@@ -182,13 +184,18 @@ const returnToInitial = () => {
         password: '',
         companyPhone: ''
     };
-    store.acessKey.password = '';
+    store.accessKey.password = '';
     formData.value.successfull = false;
     formData.value.email = '';
     formData.value.password = '';
     errorMessage.value.email = '';
     errorMessage.value.password = '';
     errorMessage.value.final = '';
+    router.push('/');
+};
+
+const goBack = () => {
+    router.push('/access-key');
 };
 
 </script>

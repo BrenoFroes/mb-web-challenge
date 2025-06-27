@@ -28,21 +28,27 @@
         </div>
         <atom-button
             :disabled="!isValidEmail || !email"
-            @click="store.step++"
+            @click="goToNextPage"
         />
     </div>
 </template>
 <script setup>
 import { ref, watch, computed } from 'vue';
 import { store } from '@stores/user-info.js';
+import { useRouter } from '@/composables/useRouter.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
 import MoleculeLabelInput from '@/components/molecules/MoleculeLabelInput.vue';
 import MoleculeLabelRadio from '@/components/molecules/MoleculeLabelRadio.vue';
 import { validateEmail } from '@/assets/utils/validations.js';
 
+const router = useRouter();
 const email = ref('');
 const personType = ref('physical');
 const errorMessage = ref('');
+
+const goToNextPage = () => {
+    router.push('/person-data');
+};
 
 watch(email, (newValue) => {
     store.initial.email = newValue;

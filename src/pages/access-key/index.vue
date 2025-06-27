@@ -1,6 +1,6 @@
 <template>
-    <div class="acess-key">
-        <h1 class="acess-key__title">Senha de acesso</h1>
+    <div class="access-key">
+        <h1 class="access-key__title">Senha de acesso</h1>
         <molecule-label-input
             id="mbPasswordInput"
             type="password"
@@ -8,16 +8,16 @@
             v-model="password"
             :errorMessage="errorMessage"
         />
-        <div class="acess-key__buttons">
+        <div class="access-key__buttons">
             <atom-button
                 class="info-review__button"
                 modifier="outline"
                 label="Voltar"
-                @click="store.step--"
+                @click="goBack"
             />
             <atom-button
                 :disabled="!isValidPassword || !password"
-                @click="store.step++"
+                @click="goToNextPage"
             />
         </div>
     </div>
@@ -25,15 +25,25 @@
 <script setup>
 import { ref, watch, computed } from 'vue';
 import { store } from '@stores/user-info.js';
+import { useRouter } from '@/composables/useRouter.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
 import MoleculeLabelInput from '@/components/molecules/MoleculeLabelInput.vue';
 import { validatePassword } from '@/assets/utils/validations.js';
 
+const router = useRouter();
 const password = ref('');
 const errorMessage = ref('');
 
+const goBack = () => {
+    router.push('/person-data');
+};
+
+const goToNextPage = () => {
+    router.push('/info-review');
+};
+
 watch(password, (newValue) => {
-    store.acessKey.password = newValue;
+    store.accessKey.password = newValue;
     updatePasswordError();
 });
 
@@ -49,7 +59,7 @@ const updatePasswordError = () => {
 
 </script>
 <style lang="scss" scoped>
-.acess-key {
+.access-key {
     display: flex;
     flex-direction: column;
     align-items: flex-start;

@@ -10,24 +10,34 @@
             <atom-button 
                 modifier="outline" 
                 label="Voltar"
-                @click="store.step--" />
+                @click="goBack" />
             <atom-button 
                 :disabled="!isFormValid" 
-                @click="store.step++" />
+                @click="goToNextPage" />
         </div>
     </div>
 </template>
 <script setup>
 import { ref } from 'vue';
 import { store } from '@stores/user-info.js';
+import { useRouter } from '@/composables/useRouter.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
 import OrganismPhysicalForm from '@/components/organisms/OrganismPhysicalForm.vue';
 import OrganismLegalForm from '@/components/organisms/OrganismLegalForm.vue';
 
+const router = useRouter();
 const isFormValid = ref(false);
 
 const handleValidationForm = (isValid) => {
     isFormValid.value = isValid;
+};
+
+const goBack = () => {
+    router.push('/');
+};
+
+const goToNextPage = () => {
+    router.push('/access-key');
 };
 
 </script>

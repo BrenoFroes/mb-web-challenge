@@ -1,31 +1,10 @@
 <template>
   <DefaultLayout>
-    <component :is="currentPage" />
+    <RouterView />
   </DefaultLayout>
 </template>
 
 <script setup>
-
-import { computed } from 'vue'
 import DefaultLayout from '@/layouts/default.vue'
-import InitialPage from '@/pages/initial/index.vue'
-import PersonDataPage from '@/pages/person-data/index.vue'
-import InfoReviewPage from '@/pages/info-review/index.vue'
-import AcessKey from '@/pages/acess-key/index.vue'
-import { store } from '@stores/user-info.js'
-
-const currentPage = computed(() => {
-  switch (store.step) {
-    case 1:
-      return InitialPage;
-    case 2:
-      return PersonDataPage;
-    case 3:
-      return AcessKey;
-    case 4:
-      return InfoReviewPage;
-    default:
-      return InitialPage;
-  }
-})
+import RouterView from '@/components/RouterView.vue'
 </script>

@@ -1,7 +1,6 @@
 import { reactive } from 'vue'
 
 const store = reactive({
-  step: 1,
   initial: {
     email: '',
     isLegalPerson: false,
@@ -17,7 +16,7 @@ const store = reactive({
     password: '',
     companyPhone: ''
   },
-  acessKey: {
+  accessKey: {
     password: '',
   }
 })
