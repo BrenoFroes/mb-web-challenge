@@ -133,7 +133,8 @@ const validatePhone = (phone) => {
     if (ignoreValidation(phone)) {
         return { valid: true, errorMessage: '' };
     }
-    const isValid = /^(\(?\d{2}\)?\s?)?(9\d{4}|[2-9]\d{3})-?\d{4}$/.test(phone);
+    const cleanPhone = phone.replace(/\D/g, '');
+    const isValid = /^(\d{2})(9\d{8}|\d{8})$/.test(cleanPhone);
     if (!isValid) {
         return { valid: false, errorMessage: 'Telefone inválido.' };
     }

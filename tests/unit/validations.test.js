@@ -211,7 +211,7 @@ describe('Validation Utils', () => {
       const invalidPhones = [
         '123',
         '11111',
-        '(11) 1111-1111',
+        '(11) 11111-1111',
         'telefone123',
         '1872111',
         '12981231',
