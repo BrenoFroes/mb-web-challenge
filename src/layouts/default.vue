@@ -2,7 +2,7 @@
   <div class="template">
     <div class="header">
       <span class="header__step">
-        Etapa <span class="header__step--number">{{ store.step }}</span>
+        Etapa <span class="header__step--number">{{ currentStep }}</span>
         de 4
       </span>
     </div>
@@ -11,7 +11,21 @@
 </template>
 
 <script setup>
-import { store } from '@stores/user-info.js';
+import { computed } from 'vue';
+import { useRouter } from '@/composables/useRouter.js';
+
+const router = useRouter();
+
+const routeStepMap = {
+  '/': 1,
+  '/person-data': 2,
+  '/access-key': 3,
+  '/info-review': 4
+};
+
+const currentStep = computed(() => {
+  return routeStepMap[router.currentRoute.value] || 1;
+});
 
 defineOptions({
   name: "DefaultLayout",
