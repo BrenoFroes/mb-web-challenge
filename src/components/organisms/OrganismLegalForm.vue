@@ -17,7 +17,7 @@
         />
         <molecule-label-input
             id="mbBirthInput"
-            label="Data de fundação"
+            label="Data de abertura"
             type="date"
             :disabled="disabled"
             v-model="formData.foundingDate"

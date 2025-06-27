@@ -24,7 +24,7 @@
             id="mbPasswordInput"
             :disabled="formData.successfull"
             type="text"
-            label="Sua senha"
+            label="Senha"
             v-model="formData.password"
             :errorMessage="errorMessage.password"/>
         <span v-if="!formData.successfull" class="info-review__error-message">
