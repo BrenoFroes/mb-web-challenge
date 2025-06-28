@@ -8,7 +8,7 @@ const store = reactive({
   personData: {
     name: '',
     cpf: '',
-    birth: '',
+    birthDate: '',
     companyName: '',
     cnpj: '',
     foundingDate: '',

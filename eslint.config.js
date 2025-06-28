@@ -21,7 +21,8 @@ export default [
     },
     rules: {
       'no-console': 'off',
-      'no-unused-vars': 'warn'
+      'no-unused-vars': 'warn',
+      'no-undef': 'off'
     }
   },
   {
@@ -33,7 +34,8 @@ export default [
         console: 'readonly',
         process: 'readonly',
         document: 'readonly',
-        window: 'readonly'
+        window: 'readonly',
+        fetch: 'readonly'
       }
     },
     rules: {

@@ -178,7 +178,7 @@ const returnToInitial = () => {
     store.personData = {
         name: '',
         cpf: '',
-        birth: '',
+        birthDate: '',
         companyName: '',
         cnpj: '',
         foundingDate: '',
