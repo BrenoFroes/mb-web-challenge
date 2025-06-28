@@ -43,6 +43,7 @@
                 @click="goBack"/>
             <atom-button
                 class="info-review__button"
+                label="Cadastrar"
                 :disabled="!isValidEmail || !isValidPassword || !isFormValid || !formData.email || !formData.password"
                 @click="sendData()"/>
         </div>
