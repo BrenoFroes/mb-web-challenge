@@ -91,6 +91,7 @@ const maskValue = (value) => {
         border: 1px solid #000;
         border-radius: 4px;
         box-sizing: border-box;
+        font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
     
         &:focus {
             outline: none;

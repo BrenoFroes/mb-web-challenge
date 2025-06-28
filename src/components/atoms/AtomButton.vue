@@ -47,16 +47,6 @@ const modifiedClass = computed(() => {
     transition: background-color 0.3s;
     margin-bottom: 12px;
 
-    &--outline {
-        border: 1px solid var(--main-color);
-        background-color: transparent;
-        color: var(--main-color);
-    }
-
-    &:hover {
-        background-color:  var(--secondary-color);
-    }
-
     &:hover:not(:disabled) {
         background-color: var(--secondary-color);
     }
@@ -64,6 +54,17 @@ const modifiedClass = computed(() => {
     &:disabled {
         opacity: 0.6;
         cursor: not-allowed;
+    }
+
+    &--outline {
+        border: 1px solid var(--main-color);
+        background-color: transparent;
+        color: var(--main-color);
+
+        &:hover:not(:disabled) {
+            color: #fff;
+            background-color: var(--main-color);
+        }
     }
 }
 </style>

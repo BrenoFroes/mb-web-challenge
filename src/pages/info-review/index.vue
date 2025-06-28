@@ -50,7 +50,7 @@
         <atom-button
             v-else
             class="info-review__button"
-            label="Início"
+            label="Retornar ao início"
             @click="returnToInitial()"/>
     </div>
 </template>

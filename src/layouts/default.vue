@@ -51,6 +51,7 @@ defineOptions({
   &__step {
     &--number {
       color: var(--main-color);
+      font: 700;
     }
   }
 }
