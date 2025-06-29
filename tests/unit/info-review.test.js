@@ -41,8 +41,10 @@ describe('InfoReview Page', () => {
     expect(wrapper.find('#mbNameInput').exists()).toBe(true)
   })
   
-  it('should pre-fill with brenos data', () => {
+  it('should pre-fill with brenos data', async () => {
     const wrapper = mount(InfoReview)
+    await wrapper.vm.$nextTick()
+    
     expect(wrapper.find('#mbEmailInput').element.value).toBe('bfroes58@gmail.com')
     expect(wrapper.find('#mbNameInput').element.value).toBe('Breno Froes')
   })

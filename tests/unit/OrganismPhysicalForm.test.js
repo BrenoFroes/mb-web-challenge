@@ -21,7 +21,7 @@ describe('OrganismPhysicalForm', () => {
   
   it('should hide title when stored prop is true', () => {
     const wrapper = mount(OrganismPhysicalForm, {
-      props: { stored: true }
+      props: { showTitle: false }
     })
     
     expect(wrapper.find('.organism-physical-form__title').exists()).toBe(false)

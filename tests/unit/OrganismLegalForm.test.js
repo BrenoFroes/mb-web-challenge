@@ -4,7 +4,9 @@ import OrganismLegalForm from '@/components/organisms/OrganismLegalForm.vue'
 
 describe('OrganismLegalForm', () => {
   it('should render corectly', () => {
-    const wrapper = mount(OrganismLegalForm)
+    const wrapper = mount(OrganismLegalForm, {
+      props: { showTitle: true }
+    })
     
     expect(wrapper.exists()).toBe(true)
     expect(wrapper.find('.organism-legal-form__title').text()).toBe('Pessoa jurídica')
@@ -21,7 +23,7 @@ describe('OrganismLegalForm', () => {
   
   it('should hide title when stored prop is true', () => {
     const wrapper = mount(OrganismLegalForm, {
-      props: { stored: true }
+      props: { showTitle: false }
     })
     
     expect(wrapper.find('.organism-legal-form__title').exists()).toBe(false)
