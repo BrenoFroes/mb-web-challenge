@@ -10,13 +10,13 @@
             :errorMessage="errorMessage.email"/>
         <div v-if="store.initial.isLegalPerson" class="info-review__legal">
             <organism-legal-form 
-                stored
+                :show-title="false"
                 :disabled="formData.successfull"
                 @update:valid="handleValidationForm"/>
         </div>
         <div v-else class="info-review__physical">
             <organism-physical-form 
-                stored
+                :show-title="false"
                 :disabled="formData.successfull"
                 @update:valid="handleValidationForm"/>
         </div>

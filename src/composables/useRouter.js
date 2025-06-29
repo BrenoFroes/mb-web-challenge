@@ -1,4 +1,4 @@
-import { ref, reactive } from 'vue'
+import { ref, markRaw } from 'vue'
 
 const currentRoute = ref(window.location.pathname || '/')
 const routerHistory = ref([])
@@ -11,7 +11,7 @@ const routes = {
   '/info-review': () => import('@/pages/info-review/index.vue')
 }
 
-const loadedComponents = reactive({})
+const loadedComponents = {}
 
 export function useRouter() {
   const push = (path) => {
@@ -49,8 +49,9 @@ export function useRouter() {
     
     try {
       const module = await routeLoader()
-      loadedComponents[path] = module.default
-      return module.default
+      const component = markRaw(module.default)
+      loadedComponents[path] = component
+      return component
     } catch (error) {
       console.error(`Erro ao carregar componente da rota ${path}:`, error)
       return null

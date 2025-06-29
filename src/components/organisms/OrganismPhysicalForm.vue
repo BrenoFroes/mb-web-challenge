@@ -1,6 +1,6 @@
 <template>
     <div class="organism-physical-form">
-        <h1 v-if="!stored" class="organism-physical-form__title">Pessoa física</h1>
+        <h1 v-if="showTitle" class="organism-physical-form__title">Pessoa física</h1>
         <molecule-label-input
             id="mbNameInput"
             label="Nome"
@@ -33,7 +33,7 @@
     </div>
 </template>
 <script setup>
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { store } from '@stores/user-info.js';
 import MoleculeLabelInput from '@/components/molecules/MoleculeLabelInput.vue';
 import { validateName, validateCPF, validateBirth, validatePhone } from '@/assets/utils/validations.js';
@@ -61,7 +61,7 @@ const validations = {
 
 const emit = defineEmits(['update:valid'])
 
-const props = defineProps({
+defineProps({
     stored: {
         type: Boolean,
         default: false
@@ -69,6 +69,10 @@ const props = defineProps({
     disabled: {
         type: Boolean,
         default: false
+    },
+    showTitle: {
+        type: Boolean,
+        default: true
     }
 });
 
@@ -111,9 +115,9 @@ const feedFieldsFromStore = () => {
     formData.value.phone = store.personData.phone || '';
 };
 
-if (props.stored) {
+onMounted(() => {
     feedFieldsFromStore();
-}
+});
 </script>
 
 <style lang="scss" scoped>

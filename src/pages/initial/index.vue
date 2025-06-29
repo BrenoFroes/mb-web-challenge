@@ -37,7 +37,7 @@
     </div>
 </template>
 <script setup>
-import { ref, watch, computed } from 'vue';
+import { ref, watch, computed, onMounted } from 'vue';
 import { store } from '@stores/user-info.js';
 import { useRouter } from '@/composables/useRouter.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
@@ -71,6 +71,15 @@ const updateEmailError = () => {
     const result = validateEmail(email.value);
     errorMessage.value = result.errorMessage;
 };
+
+const feedFieldsFromStore = () => {
+    email.value = store.initial.email || '';
+    personType.value = store.initial.isLegalPerson ? 'legal' : 'physical';
+};
+
+onMounted(() => {
+    feedFieldsFromStore();
+});
 
 </script>
 <style lang="scss" scoped>

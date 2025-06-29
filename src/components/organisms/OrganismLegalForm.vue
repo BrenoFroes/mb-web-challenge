@@ -1,6 +1,6 @@
 <template>
     <div class="organism-legal-form">
-        <h1 v-if="!stored" class="organism-legal-form__title">Pessoa jurídica</h1>
+        <h1 v-if="showTitle" class="organism-legal-form__title">Pessoa jurídica</h1>
         <molecule-label-input
             id="mbCompanyNameInput"
             label="Razão social"
@@ -33,7 +33,7 @@
     </div>
 </template>
 <script setup>
-import { ref, watch } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { store } from '@stores/user-info.js';
 import MoleculeLabelInput from '@/components/molecules/MoleculeLabelInput.vue';
 import { validateCompanyName, validateCNPJ, validateFoundingDate, validatePhone } from '@/assets/utils/validations.js';
@@ -61,8 +61,8 @@ const validations = {
 
 const emit = defineEmits(['update:valid'])
 
-const props = defineProps({
-    stored: {
+defineProps({
+    showTitle: {
         type: Boolean,
         default: false
     },
@@ -111,9 +111,9 @@ const feedFieldsFromStore = () => {
     formData.value.companyPhone = store.personData.companyPhone || '';
 };
 
-if (props.stored) {
+onMounted(() => {
     feedFieldsFromStore();
-}
+});
 
 </script>
 

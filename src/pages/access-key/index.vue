@@ -23,7 +23,7 @@
     </div>
 </template>
 <script setup>
-import { ref, watch, computed } from 'vue';
+import { ref, watch, computed, onMounted } from 'vue';
 import { store } from '@stores/user-info.js';
 import { useRouter } from '@/composables/useRouter.js';
 import AtomButton from '@/components/atoms/AtomButton.vue';
@@ -56,6 +56,14 @@ const updatePasswordError = () => {
     const result = validatePassword(password.value);
     errorMessage.value = result.errorMessage;
 };
+
+const feedFieldsFromStore = () => {
+    password.value = store.accessKey.password || '';
+};
+
+onMounted(() => {
+    feedFieldsFromStore();
+});
 
 </script>
 <style lang="scss" scoped>
