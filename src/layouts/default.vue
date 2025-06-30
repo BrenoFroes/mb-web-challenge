@@ -39,8 +39,8 @@ defineOptions({
   background-color: #fff;
   display: flex;
   flex-direction: column;
-  max-width: 400px;
-  max-height: 930px;
+  max-width: 406px;
+  max-height: 906px;
   margin: 0 auto;
   padding: 12px;
   border-radius: 4px;
