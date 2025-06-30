@@ -50,8 +50,7 @@ npm run build
 node server/index.js
 
 Dai acessar:
-- http://localhost:5173 (front)
-- http://localhost:3000 (back)
+- http://localhost:3000
 ```
 
 ## Comandos úteis
@@ -68,6 +67,9 @@ Caso deseje rodar somente o front:
 ```bash
 # front
 npm run dev
+
+Dai acessar:
+- http://localhost:5173 (front)
 ```
 
 ## API Endpoints
