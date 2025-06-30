@@ -60,6 +60,7 @@ npm run dev          # roda o front
 npm run build        # gera build pra produção
 npm run lint         # verifica o código
 npm run lint:fix     # corrige o que conseguir automaticamente
+npm run test         # roda os testes unitários
 ```
 
 
