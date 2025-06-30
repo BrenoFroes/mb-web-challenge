@@ -15,7 +15,7 @@ Desafio como basse: https://github.com/mercadobitcoin/desafio-mb-web
 - Formulário para pessoa física (nome, cpf, data de nascimento e telefone)
 - Formulário para empresa (cnpj, razão social, data de fundacao e telefone) 
 - Validação dos campos em tempo real
-- Interface mobile
+- Interface somente mobile
 - Você pode revisar os dados antes de enviar
 - Componentes organizados (atomic design)
 - CSS organizado com BEM
@@ -44,17 +44,16 @@ npm install
 Depois para rodar:
 ```bash
 # front
-npm run dev
-
-Ideal é buildar:
-```bash
-# front
 npm run build
-
 
 # back (outro terminal)
 node server/index.js
 ```
+
+Caso deseje rodar somente o front:
+```bash
+# front
+npm run dev
 
 Dai acessar:
 - http://localhost:5173 (front)

@@ -23,7 +23,7 @@
         <molecule-label-input
             id="mbPasswordInput"
             :disabled="formData.successfull"
-            type="text"
+            type="password"
             label="Senha"
             v-model="formData.password"
             :errorMessage="errorMessage.password"/>
