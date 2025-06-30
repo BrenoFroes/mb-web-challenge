@@ -48,16 +48,11 @@ npm run build
 
 # back (outro terminal)
 node server/index.js
-```
-
-Caso deseje rodar somente o front:
-```bash
-# front
-npm run dev
 
 Dai acessar:
 - http://localhost:5173 (front)
 - http://localhost:3000 (back)
+```
 
 ## Comandos úteis
 
@@ -66,6 +61,13 @@ npm run dev          # roda o front
 npm run build        # gera build pra produção
 npm run lint         # verifica o código
 npm run lint:fix     # corrige o que conseguir automaticamente
+```
+
+
+Caso deseje rodar somente o front:
+```bash
+# front
+npm run dev
 ```
 
 ## API Endpoints
